@@ -1,0 +1,57 @@
+# Verification-of-normality-of-log-return.
+
+class Data_pre:               # 데이터 전처리 클래스   
+
+    def __init__(self,data):  
+        
+        self.price=[] #종가 저장
+        self.return_=[] #수익률 저장
+        self.log_p=[] #로그 값 저장
+        self.data=data
+        
+    def reset(self):    #데이터 리셋 함수
+        self.return_=[]
+        self.log_p=[]
+        self.price=[]
+        
+    def 종가(self):
+        self.reset()
+        for i in range(len(self.data)):  # 문자열 처리 및 반올림
+            try:
+                k=float(self.data['종가'][i].replace(',',''))        #종가 처리
+                k=round(k,4)   
+                self.price.append(k)
+            except:
+                k=float(self.data['종가'][i])
+                k=round(k,4)
+                self.price.append(k)
+
+        for i in range(len(self.data)-1):  #수익률구하기
+            a=(self.price[i+1]-self.price[i])/self.price[i]
+            a=round(a,3)
+            self.return_.append(a)
+        
+        y2=self.return_
+        date=range(len(y2))
+        x2=date
+        plt.title('HPR')    #주가 수익률의 그래프
+        plt.ylabel('return')
+        plt.xlabel('date')
+        plt.plot(x2,y2)
+        
+        return self.price,self.return_  #종가, 수익률
+    
+    
+    
+    def lnZ_t(self,종가):  #log price 구하기 =ln(zt)=x_t
+        self.reset()
+        log_p=self.log_p
+        for i in 종가:    #종가의 로그 
+            a=np.log(i)
+            log_p.append([round(a,3)])
+        return log_p
+    
+
+K=Data_pre(data)
+종가,수익률 = K.종가()
+lnZ=K.lnZ_t(종가)

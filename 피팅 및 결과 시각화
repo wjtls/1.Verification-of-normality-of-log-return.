@@ -1,0 +1,55 @@
+# Verification-of-normality-of-log-return.
+
+iidx=input('출력할 데이터선택, ex.10분,120분,240분,일봉,주봉,종합= 10,120,240,1,7,000 :')     #값을입력하면 정수형태로 반환
+iidx=int(iidx)
+
+
+observe=observation(lnZ,2)   #구간별로 observation 저장
+
+total_xt=[]  #구간별 피팅데이터 모음
+total_xs=[]  #구간별 x* 데이터 모음
+total_zt=[]  #구간별 delta_zt데이터 모음
+
+for t in observe:                #구간별 저장된 데이터들을 피팅 진행
+    C=선형함수(lnZ,t)
+    C.optimize()
+    total_xt.append(C.save_y())
+    total_xs.append(C.x_star())
+    total_zt.append(C.delta_Zt())
+
+if idx==10:                     #10분봉 데이터일경우 zt10 에 저장 (저장시키고 나중에 다시 출력할때 쓰기위함)
+    xt10=total_xt.copy()
+    xs10=total_xs.copy()
+    zt10=total_zt.copy()
+
+elif idx==120:                 #120분 데이터 일경우  zt120 에 저장
+    xt120=total_xt.copy()
+    xs120=total_xs.copy()
+    zt120=total_zt.copy()
+
+elif idx==240:                #위와동일.
+    xt240=total_xt.copy()
+    xs240=total_xs.copy()
+    zt240=total_zt.copy()
+
+elif idx==999:
+    xt999=total_xt.copy()
+    xs999=total_xs.copy()
+    zt999=total_zt.copy()
+
+elif idx==1:
+    xt1=total_xt.copy()
+    xs1=total_xs.copy()
+    zt1=total_zt.copy()
+
+elif idx==7:
+    xt7=total_xt.copy()
+    xs7=total_xs.copy()
+    zt7=total_zt.copy()
+
+else:
+    print('잘못설정함 리셋하시오')
+        
+
+
+try_graph(iidx)

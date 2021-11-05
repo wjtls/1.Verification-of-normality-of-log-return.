@@ -1,0 +1,56 @@
+# Verification-of-normality-of-log-return.
+
+#2월 3일 ~ 11월 24일 코스피데이터들
+data1=pd.read_csv('10분-2월.csv',encoding='utf-8')                    
+data2=pd.read_csv('120분-2월.csv',encoding='utf-8')
+data3=pd.read_csv('240분-2월.csv',encoding='utf-8')
+data5=pd.read_csv('일봉2월.csv',encoding='utf-8')
+data6=pd.read_csv('주봉-2월.csv',encoding='utf-8')
+
+
+def sort_(x):   #데이터 오름차순 정렬
+    x=x.sort_values(by=('일자'), ascending=True) #오름차순 정렬
+    x=x.reset_index()                            #인덱스 초기화
+    x.drop(['index'],axis=1,inplace=True)       #칼럼 제거
+    return x
+
+data1=sort_(data1)   #10분           
+data2=sort_(data2)   #120분
+data3=sort_(data3)   #240분
+data5=sort_(data5)   #일봉
+data6=sort_(data6)   #주봉
+
+def 데이터(x):     #각 데이터중 선택된것 출력
+    if x==10:             #ex) 10분봉이면 10분데이터 출력
+        a=data1.head()
+        b=data1
+    elif x==120:
+        a= data2.head()
+        b=data2
+    elif x==240:
+        a=data3.head()
+        b=data3
+    elif x==999:
+        a=data4.head()
+        b=data4
+    elif x==1:
+        a1=data5.dropna()   #nan값 있을시 행 삭제
+        a=a1.head()
+        b=a1
+    elif x==7:
+        a=data6.head()
+        b=data6
+    else:
+        a=print('잘못설정함 다시 쓰시오')
+        b=print('None')
+    return a,b
+        
+        
+print('ex.10분,120분,240분,일봉,주봉= 10,120,240,1,7')
+
+idx=input('사용할 데이터를 쓰시오  :')
+idx=int(idx)
+
+data_head,data=데이터(idx)
+data_head
+

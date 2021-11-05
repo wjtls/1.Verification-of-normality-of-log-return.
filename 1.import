@@ -1,0 +1,8 @@
+import pandas as pd                                               #데이터 처리
+import matplotlib.pyplot as plt                                   #그래프 
+import numpy as np                                                #여러 계산
+from scipy import stats                                           #통계(p-value사용)
+from scipy.stats import norm                                      #정규분포
+from sklearn.preprocessing import MinMaxScaler                    #정규화함수 
+from sklearn.linear_model import LinearRegression                 #선형회귀
+from statsmodels.graphics.gofplots import qqplot                  #qqplot 그래프

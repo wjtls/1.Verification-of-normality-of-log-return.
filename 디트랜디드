@@ -1,0 +1,70 @@
+# Verification-of-normality-of-log-return.
+class 선형함수:       #선형회귀, 디트랜디드 계산 클래스
+    
+    def __init__(self,lnZ,observe):
+        self.lnZ=lnZ          #전체 lnZ데이터
+        self.observe=observe  #구할데이터의 구간 ex [0,2] 
+        self.xt=[]
+        self.xstar=[]
+        self.deltaz=[]
+        
+        self.w=0
+        self.b=0
+        
+        
+    def reset(self):
+        self.lnZ=lnZ          #전체 lnZ데이터
+        self.observe=observe  #구할데이터의 구간 ex [0,2] 
+        self.xt=[]
+        self.xstar=[]
+        self.deltaz=[]
+        
+        self.w=0
+        self.b=0
+        
+    
+    def optimize(self):   #y=wx+b꼴을 구하기위해 weight와 bias를 구함
+        x_data=[]
+        for k in range(self.observe[0],self.observe[1]): #self observe = ([10,20,30]분,[20,30,40]분 ...)
+                                                            
+            #X데이터 LinearRegression()함수 넣기전 전처리
+            x_data.append([k])
+        
+        model = LinearRegression()    #model 생성
+        model.fit(X=x_data, y = lnZ[self.observe[0]:self.observe[1]]) 
+
+        self.w=float(model.coef_)
+        self.b=float(model.intercept_)
+
+        print("w:",self.w ,'\n'"b:",self.b,'\n')
+        
+        return self.w,self.b
+    
+    
+    def save_y(self):       #선형함수에 x_t(=lnZ) 피팅
+        for t in range(self.observe[0],self.observe[1]):  #구한 w와 b넣어 계산
+            Y=self.w*t+self.b
+            Y=round(Y,5)
+            self.xt.append(Y)
+        return self.xt
+    
+    
+    
+    def x_star(self):  #  x'(t) 는 lnZ(t)- x_t선형  == 편차
+        
+        lnz=np.array(self.lnZ[self.observe[0]:self.observe[1]]).flatten().tolist()  #해당구간 lnZ데이터 전처리
+        result=np.subtract(lnz,self.xt)   
+        self.xstar=np.round(result,3)   #해당구간 lnZ-선형함수
+        self.xstar=result                                          
+        
+        return self.xstar
+    
+    
+        
+    def delta_Zt(self):    #delta Zt
+        s=1     #10분 or 120 or 240 ... ,  
+        a=self.xstar[0+s]-self.xstar[0]     #delta zt 에서 t구간은  1+s(k-1) <= t <= sk 
+        a=round(a,5)
+        self.deltaz.append(a)
+        return  self.deltaz
+    

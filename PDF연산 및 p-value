@@ -1,0 +1,174 @@
+# Verification-of-normality-of-log-return.
+
+########################3PDF 연산 및 p-value 검증, 시각화##################################
+
+def graph(zt,color):   #Y범위 지정한 그래프(종합때출력)
+    delta_std=np.divide(zt,np.std(zt))            #델타zt/std(zt)
+    Zt_=delta_std
+    pdf=norm.pdf(zt,0,0.01)   #pdf(delta_Z)       #델타zt의 pdf
+    try:
+        if zt==zt10:                                         #아래 try if 문들은 논문처럼 pdf 범위 상대적으로 보기쉽게 지정
+            scaler=MinMaxScaler(feature_range=(0,0.1)) 
+            ddd2=pd.DataFrame(pdf)   
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+    
+    try: 
+        if zt==zt120:
+            scaler=MinMaxScaler(feature_range=(0,0.09))   
+            ddd2=pd.DataFrame(pdf)    
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+    
+        
+    try:
+        if zt==zt240:
+            scaler=MinMaxScaler(feature_range=(0,0.08))   
+            ddd2=pd.DataFrame(pdf)  
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+        
+    try:
+        if zt==zt1:
+            scaler=MinMaxScaler(feature_range=(0,0.07))   
+            ddd2=pd.DataFrame(pdf) 
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+        
+    try:
+        if zt==zt7:
+            scaler=MinMaxScaler(feature_range=(0,0.06))  
+            ddd2=pd.DataFrame(pdf) 
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+        
+    try:
+        if zt==zt999:
+            scaler=MinMaxScaler(feature_range=(0,0.05))  
+            ddd2=pd.DataFrame(pdf) 
+            dd2=scaler.fit_transform(ddd2)
+            pdf=dd2
+    except:
+        pass
+            
+    
+
+    plt.title('graph')
+    plt.xlabel('delta_Zt/std(Zt)')
+    
+    plt.xlim(-15,15)
+    plt.ylabel('pdf(delta_Zt)')
+    plt.scatter(Zt_,pdf,c=color)
+    print('그래프 빨강10분, 파랑120분, 초록240분, 골드일봉, 검정주봉')
+    
+    
+def graph2(zt,color):            #개별그래프 출력
+    
+    delta_std=np.divide(zt,np.std(zt))                  
+    Zt_=delta_std
+    pdf=norm.pdf(zt,0,0.01)   #pdf  델타 z
+    
+    
+     
+    print('1번 그래프 빨강10분, 파랑120분, 초록240분, 골드일봉, 검정주봉')
+   
+    plt.title('graph')
+    plt.xlabel('delta_Zt/std(Zt)')
+    plt.ylabel('pdf(delta_Zt)')
+    plt.scatter(Zt_,pdf,c=color)
+    
+
+    
+    
+# 원하는 그래프 출력#
+
+def try_graph(iidx):      ####그래프     ex 10이 들어오면 10분그래프결과 보여주고, 120이들어오면 120분결과 ....000이면 전부출력
+    if iidx==10:
+        try:
+            graph2(zt10,'r')   #델타zt 10분봉계산 데이터를 그리는데 red색으로 그림.
+            print('\nw=',stats.shapiro(zt10)[0],'p-value=',stats.shapiro(zt10)[1],'표준편차=',np.std(zt10),'\n평균=',np.mean(zt10))
+            print('p-value 0.05이하일때 정규성 x')
+            Zt_=np.linspace(np.min(zt10), np.max(zt10), len(zt10)) 
+            data=np.array(Zt_)
+            fig=qqplot(data,line='s')
+        except:
+            pass
+    if iidx==120:
+        try:
+            graph2(zt120,'b')
+            print('\nw=',stats.shapiro(zt120)[0],'p-value=',stats.shapiro(zt120)[1],'표준편차=',np.std(zt120),'\n평균=',np.mean(zt120))
+            print('p-value 0.05이하일때 정규성 x')
+            Zt_=np.linspace(np.min(zt120), np.max(zt120), len(zt120)) 
+            data=np.array(Zt_)
+            fig=qqplot(data,line='s')
+        except:
+            pass
+    if iidx==240:
+        try:
+            graph2(zt240,'g')
+            print('\nw=',stats.shapiro(zt240)[0],'p-value=',stats.shapiro(zt240)[1],'표준편차=',np.std(zt240),'\n평균=',np.mean(zt240))
+            print('p-value 0.05이하일때 정규성 x')
+            Zt_=np.linspace(np.min(zt240), np.max(zt240), len(zt240)) 
+            data=np.array(Zt_)
+            fig=qqplot(data,line='s')
+        except:
+            pass
+    if iidx==1:
+        try:
+            graph2(zt1,'gold')
+            print('\nw=',stats.shapiro(zt1)[0],'p-value=',stats.shapiro(zt1)[1],'표준편차=',np.std(zt1),'\n평균=',np.mean(zt1))
+            print('p-value 0.05이하일때 정규성 x')
+            Zt_=np.linspace(np.min(zt1), np.max(zt1), len(zt1)) 
+            data=np.array(Zt_)
+            fig=qqplot(data,line='s')
+        except:
+            pass
+    if iidx==7:
+        
+        try:
+            graph2(zt7,'black')
+            print('\nw=',stats.shapiro(zt7)[0],'p-value=',stats.shapiro(zt7)[1],'표준편차=',np.std(zt7),'\n평균=',np.mean(zt7))
+            print('p-value 0.05이하일때 정규성 x')
+            Zt_=np.linspace(np.min(zt7), np.max(zt7), len(zt7)) 
+            data=np.array(Zt_)
+            fig=qqplot(data,line='s')
+        except:
+            pass
+        
+    if iidx==000:
+        try:
+            graph(zt10,'r')
+        except:
+            pass
+        
+        try:
+            graph(zt120,'b')
+        except:
+            pass
+        
+        try:
+            graph(zt240,'g')
+        except:
+            pass
+        
+        try:
+            graph(zt1,'gold')
+        except:
+            pass
+    
+        
+        try:
+            graph(zt7,'black')
+        except:
+            pass
+        

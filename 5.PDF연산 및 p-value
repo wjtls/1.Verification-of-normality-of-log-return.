@@ -96,7 +96,7 @@ def try_graph(iidx):      ####그래프     ex 10이 들어오면 10분그래프
     if iidx==10:
         try:
             graph2(zt10,'r')   #델타zt 10분봉계산 데이터를 그리는데 red색으로 그림.
-            print('\nw=',stats.shapiro(zt10)[0],'p-value=',stats.shapiro(zt10)[1],'표준편차=',np.std(zt10),'\n평균=',np.mean(zt10))
+            print('\nw=',stats.shapiro(zt10)[0],'p-value=',stats.shapiro(zt10)[1],'표준편차=',np.std(zt10),'\n평균=',np.mean(zt10))   #shapiro test: 정규분포인지 확인하는 
             print('p-value 0.05이하일때 정규성 x')
             Zt_=np.linspace(np.min(zt10), np.max(zt10), len(zt10)) 
             data=np.array(Zt_)

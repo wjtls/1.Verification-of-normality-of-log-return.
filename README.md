@@ -41,16 +41,25 @@
 
 
 ## 본론
-   ![image](https://user-images.githubusercontent.com/60399060/146667054-0d3b15d7-769d-41be-a7dd-6cf8975e8657.png)
+
+ - 주가의 로그 수익률이 정규분포를 따르는지 확인하기에 앞서, <br/>
+   주가의 추세를 제거하여 데이터의 변동에 초점을 맞추기 위해 트랜드를 제거하는 Detrended procedure 를 거친다.
+   이 과정을 거치면 데이터에 왜곡을 일으킨다고 여겨지는 부분을 제거할 수 있다.<br/><br/>
+   
+ - Detrended 과정
+   ![image](https://user-images.githubusercontent.com/60399060/146667054-0d3b15d7-769d-41be-a7dd-6cf8975e8657.png)<br/>
    G(t)=주가의 로그 수익률
    
-   ![image](https://user-images.githubusercontent.com/60399060/146667060-ba3256e8-5458-4590-8383-39c9b74821d4.png)
-   트랜드 제거 과정을 거치기전 부분구간을 설정하고
+   ![image](https://user-images.githubusercontent.com/60399060/146667060-ba3256e8-5458-4590-8383-39c9b74821d4.png)<br/>
+   트랜드 제거 과정을 거치기전 부분구간을 설정하고<br/>
    지수 트랜드(x'(t))를 구하기 위해 부분 구간별로 rolling 하여 선형함수 weight와 bias를 구하여 피팅시킨다.
    
-   ![image](https://user-images.githubusercontent.com/60399060/146667083-78ab7987-69c7-4d53-b2d2-926ec5163d11.png)
-   여기서 x*(t) = lnZ(t) - x'(t) 이다.
-   (x'(t) = 지수 트랜드)
+   ![image](https://user-images.githubusercontent.com/60399060/146667083-78ab7987-69c7-4d53-b2d2-926ec5163d11.png)<br/>
+   여기서 x*(t) = lnZ(t) - x'(t) 이고,<br/>
+   Z(t) = 디트랜디드화 된 로그 수익률이다.
+   
+   
+   
   <br/><br/><br/><br/><br/>
 
  

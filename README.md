@@ -51,7 +51,7 @@
     모수 (Paremeter): 확률분포의 형태를 결정짓는 통계량 
     => 모수의 값을 알면 확률분포의 그래프를 정확히 그릴 수 있음
     
-  -확률 밀도 함수(PDF:Probability density function)
+  - 확률 밀도 함수(PDF:Probability density function)
     확률 변수의 분포를 나타내는 함수
     확률 밀도 함수 f(x)와 구간 [a,b]에 대해서 확률 변수 X가 구간에 포함될 확률 P(a≤X≤b)는 
     확률 밀도 함수f(x) 조건

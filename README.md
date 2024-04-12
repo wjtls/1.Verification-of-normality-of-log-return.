@@ -1,5 +1,5 @@
 # Verification-of-normality-of-log-return.
-## 주가의 로그리턴이 정규분포를 따르는지 확인한다.
+## 주가의 로그리턴이 정규분포를 따르는지 확인한다. 
 
 - 도구
 
